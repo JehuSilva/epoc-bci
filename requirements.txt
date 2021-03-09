@@ -1,0 +1,9 @@
+flask-socketio
+redis
+cryptography
+tabulate
+pycrypto
+gevent
+pandas
+numpy
+Flask

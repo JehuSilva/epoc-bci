@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Chart libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@1.8.0"></script>
+    <!-- Socket libraries -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.2/socket.io.js"></script>
+    <script src="static/eeg_chart.js"></script>
+    <!-- Style sheet -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Smoothie -->
+    <script type="text/javascript" src="static/smoothie.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="jumbotron">
+    <h2>Epoc + Stream Data</h2>
+    <p>Details on <a href='https://github.com/JehuSilva/BMI-Epoc' target='_blank'>github.com/JehuSilva</a></p>
+  </div>
+</div>
+    
+</div>
+
+<div class="container" id="content">
+    <div class="row">
+        <p>Asynchronous page updates will appear here:</p>
+        <h3>Number list:</h3>
+        <div id="log">
+        </div> <!-- /#log -->
+    </div>
+</div>
+
+<div>
+  <center>
+  <h1>{{ title }}</h1>
+  <canvas id="eeg_chart" width="600" height="400"></canvas>
+  <p>
+    <button id="randomizeData">Randomize Data</button>
+    <button id="addDataset">Add Dataset</button>
+    <button id="removeDataset">Remove Dataset</button>
+    <button id="addData">Add Data</button>
+  </p>
+  </center>
+</div>
+
+</body>
+</html>
