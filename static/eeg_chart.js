@@ -22,16 +22,20 @@ $(document).ready(function(){
                 backgroundColor: color(chartColors.red).alpha(0.1).rgbString(),
                 borderColor: chartColors.red,
                 fill: false,
-                lineTension: 0,
-                borderDash: [10, 20],
-                data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+                // lineTension: 0,
+                // borderDash: [8, 4],
+                data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             }]
         },
         options: {
             scales: {
-                xxAxes: {
+                xAxes: {
                     type: 'time',
-                    distribution: 'series'
+                    // distribution: 'series',
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 20
+                    }
                 }
             }
         }
@@ -46,9 +50,9 @@ $(document).ready(function(){
     }
     
     function removeData(chart) {
-        chart.data.labels.pop();
+        // chart.data.labels.shift();
         chart.data.datasets.forEach((dataset) => {
-            dataset.data.pop();
+            dataset.data.shift();
         });
         chart.update();
     }
@@ -65,15 +69,16 @@ $(document).ready(function(){
     };
 
 
-    var socket = io.connect('http://' + document.domain + ':' + location.port + '/stream');
+    var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+    var data_array = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    window.devicePixelRatio = 1.0;
 
     socket.on('data', function(msg) {
-        console.log('hello');
-        // console.log(msg.sensors.F3.value);
-        // data_array.push(msg.number);
-        // data_array.shift();
-        // console.log(data_array);
-        // addData(window.chart,'F1',msg.number)
+        data_array.push(msg.T7.value);
+        data_array.shift();
+        console.log(data_array);
+        addData(window.chart, Date.now(), msg.T7.value)
+        removeData(window.chart)
     });
 
 });

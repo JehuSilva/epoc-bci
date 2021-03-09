@@ -12,7 +12,7 @@ from .utils import emotiv_info,get_key2
 from .logger import logger
 from .constants import *
 
-
+DEVICE_POOL_INTERVAL = 0.01
 
 class Epoc(object):
     def __init__(self, socket, display = True):
@@ -75,9 +75,9 @@ class Epoc(object):
             data = []
             [data.append([item[0],item[1]['value'],item[1]['quality']]
             ) for item in self.sensors.items()]
-            # self.socket.emit('data', 5, namespace='/stream')
+            self.socket.emit('data', self.sensors, namespace='/test')
             print(tabulate(data, headers=['Sensor','Value','Quality'],tablefmt="github"))
-            gevent.sleep(0.01)
+            gevent.sleep(0)
 
     def streamer(self):
         with open(f'/dev/{self.hidraw}','rb') as hid:
@@ -88,7 +88,7 @@ class Epoc(object):
                         self.encrypted_queue.put_nowait(data)
                         gevent.sleep(0)
                     else:
-                        gevent.sleep(DEVICE_POLL_INTERVAL)
+                        gevent.sleep(DEVICE_POOL_INTERVAL)
 
                 except Exception as e:
                     logger.info('Streaming error')
